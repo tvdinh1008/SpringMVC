@@ -9,4 +9,5 @@ public interface GenericDAO<ID extends Serializable, T> {
 	T update(T entity);
 	void save(T entity);
 	T findById(ID var1);
+	Integer delete(List<ID> ids);
 }

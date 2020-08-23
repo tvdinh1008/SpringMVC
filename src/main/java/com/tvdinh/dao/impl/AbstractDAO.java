@@ -8,16 +8,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.apache.log4j.Logger;
+
+//import org.apache.log4j.Logger;
+
 import com.tvdinh.dao.GenericDAO;
 
 import javassist.tools.rmi.ObjectNotFoundException;
+
 
 public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>{
 	
 	protected EntityManagerFactory factory;
 	protected EntityManager entityManager;
 	private Class<T> persistenceClass; //model.class
-	
+	private final Logger logger=Logger.getLogger(this.getClass());//chú ý file config: resouces/log4j.properties
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDAO() {
@@ -55,9 +60,11 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 			Object object=entityManager.merge(entity);
 			entityManager.getTransaction().commit();
 			result=(T) object;
+			
 		} catch(Exception e) {
 			entityManager.getTransaction().rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			logger.error(e.getMessage(),e);
 		} finally {
 			close();
 		}
@@ -73,7 +80,8 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			logger.error(e.getMessage(),e);
 		} finally {
 			close();
 		}
@@ -95,11 +103,34 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 			}
 		} catch(Exception e) {
 			entityManager.getTransaction().rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			logger.error(e.getMessage(),e);
 		} finally {
 			close();
 		}
 		return result;
+	}
+	@Override
+	public Integer delete(List<ID> ids) {
+		Integer count=0;
+		openEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+			for(ID id:ids)
+			{
+				T entity=(T)entityManager.find(persistenceClass, id);
+				entityManager.remove(entity);
+				count++;
+			}
+			entityManager.getTransaction().commit();
+		} catch(Exception e) {
+			entityManager.getTransaction().rollback();
+			//System.out.println(e.getMessage());
+			logger.error(e.getMessage(),e);
+		} finally {
+			close();
+		}
+		return count;// nếu count==list.size thì chứng tỏ xóa thành công
 	}
 
 }
