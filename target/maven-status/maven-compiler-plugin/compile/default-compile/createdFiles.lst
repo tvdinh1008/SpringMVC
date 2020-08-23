@@ -1,0 +1,7 @@
+com\tvdinh\dao\GenericDAO.class
+com\tvdinh\dao\impl\CustomerDAO.class
+com\tvdinh\dao\impl\AbstractDAO.class
+com\tvdinh\dao\impl\RoleDAO.class
+com\tvdinh\entity\CustomerEntity.class
+com\tvdinh\dao\ICustomerDAO.class
+com\tvdinh\config\JPAConfig.class
