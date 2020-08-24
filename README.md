@@ -10,7 +10,7 @@
   - extents
   - implements( vidu Serializable)
   
- + Pojo(Plain Old Java Object): là java bean thuần 
+ + Pojo(Plain Old Java Object): là java bean thuần
   - private property
   - getter and setter
   - Không được extends, implements từ các khác trừ Serializable
