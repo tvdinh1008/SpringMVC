@@ -5,7 +5,7 @@
     <classes>
       <class name="com.tvdinh.test.CustomerTest">
         <methods>
-          <include name="checkFindAll"/>
+          <include name="checkFindID"/>
         </methods>
       </class> <!-- com.tvdinh.test.CustomerTest -->
     </classes>

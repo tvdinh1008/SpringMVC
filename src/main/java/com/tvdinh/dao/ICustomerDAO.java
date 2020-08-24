@@ -2,6 +2,6 @@ package com.tvdinh.dao;
 
 import com.tvdinh.entity.CustomerEntity;
 
-public interface ICustomerDAO extends GenericDAO<Integer, CustomerEntity>{
+public interface ICustomerDAO extends GenericDAO<Long, CustomerEntity>{
 
 }

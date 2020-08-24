@@ -12,6 +12,7 @@ import com.tvdinh.dao.ICustomerDAO;
 import com.tvdinh.dao.impl.CustomerDAO;
 
 import com.tvdinh.entity.CustomerEntity;
+import com.tvdinh.entity.RoleEntity;
 
 
 
@@ -28,22 +29,34 @@ public class CustomerTest {
 	}
 	
 	@Test
+	public void checkFindID()
+	{
+		ICustomerDAO iCustomerDAO=new CustomerDAO();
+		CustomerEntity cus=iCustomerDAO.findById(5L);
+		System.out.println(cus);
+	}
+	
+	@Test
 	public void checkSave()
 	{	
 		ICustomerDAO iCustomerDAO=new CustomerDAO();
 		CustomerEntity cus=new CustomerEntity();
-		cus.setName("Trần Văn Định");
+		cus.setName("Trần Văn Định nhé");
 		cus.setUsername("dinh");
 		cus.setPassword("123");
+		
+		RoleEntity role=new RoleEntity();
+		role.setRoleId(1L);
+		cus.setRoleEntity(role);
+	
 		iCustomerDAO.save(cus);
-		System.out.println(cus);
 	}
 	
 	 @Test 
 	 public void checkUpdateCustomer() { 
 	 	ICustomerDAO iCustomerDAO=new CustomerDAO();
 	 	CustomerEntity cus=new CustomerEntity();
-	 	cus.setId(1L);
+	 	cus.setCustomerId(1l);
 	 	cus.setName("Trần Văn Định nhé");
 		cus.setUsername("dinh");
 		cus.setPassword("123");
@@ -56,7 +69,7 @@ public class CustomerTest {
 	 @Test
 	 public void checkDelete()
 	 {
-		 List<Integer> listID=new ArrayList<Integer>();
+		 List<Long> listID=new ArrayList<Long>();
 		// listID.add(1);
 		// listID.add(2);
 		 ICustomerDAO iCustomerDAO=new CustomerDAO();

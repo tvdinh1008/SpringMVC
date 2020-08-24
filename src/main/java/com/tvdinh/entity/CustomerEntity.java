@@ -1,13 +1,24 @@
 package com.tvdinh.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+
+/*
+ * Để sử dụng 4 cái @LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy thì cần cấu hình
+ */
 
 
 @Entity
@@ -16,9 +27,10 @@ public class CustomerEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name="customerid")
+	private Long customerId;
 	
-	@Column(name="name")
+	@Column(name="name", columnDefinition = "nvarchar(250)")
 	private String name;
 	
 	@Column(name="username")
@@ -39,16 +51,56 @@ public class CustomerEntity {
 	@Column(name="status")
 	private int status;
 	
-	@Column(name="roleid")
-	private Long roleid;
-	//private RoleModel role=new RoleModel();
+	
+	@Column(name="createddate")
+	@CreatedDate
+	private Timestamp createdDate;
+	
+	
+	@Column(name="modifieddate")
+	@LastModifiedDate
+	private Timestamp modifiedDate;
+	
 
-	public Long getId() {
-		return id;
+	//@Column(name="roleid")
+	//private Long roleid;
+	@ManyToOne(optional = false) //kiểm tra ràng buộc nếu không nó cho insert cả null
+	@JoinColumn(name="roleid")
+	private RoleEntity roleEntity;
+	
+	
+
+	
+	public Timestamp getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	public RoleEntity getRoleEntity() {
+		return roleEntity;
+	}
+
+	public void setRoleEntity(RoleEntity roleEntity) {
+		this.roleEntity = roleEntity;
 	}
 
 	public String getName() {
@@ -107,13 +159,11 @@ public class CustomerEntity {
 		this.status = status;
 	}
 
-	public Long getRoleid() {
-		return roleid;
-	}
-
-	public void setRoleid(Long roleid) {
-		this.roleid = roleid;
-	}
+	/*
+	 * public Long getRoleid() { return roleid; }
+	 * 
+	 * public void setRoleid(Long roleid) { this.roleid = roleid; }
+	 */
 	
 
 }
