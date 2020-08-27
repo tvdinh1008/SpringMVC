@@ -3,8 +3,10 @@
 + Có điểm khác nhau giữa Spring data jpa và hibernate jpa2.1
   Nếu muốn sử dụng auditing(@LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy) của spring data jpa thôi thì ta chỉ cần cấu hình 3 file:
   - JPAConfig.java
+  
       @Configuration
       public class JPAConfig {
+      
         @Bean
         public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
           LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -12,10 +14,14 @@
           return em;
          }
       }
+      
   - JpaAuditingConfig.java
+  
       @Configuration
       @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+      
       public class JpaAuditingConfig {
+    
         @Bean
         public AuditorAware<String> auditorProvider() {
           return new AuditorAwareImpl();
@@ -34,13 +40,16 @@
          }
         }
    - Và persistence.xml
+   
       <?xml version="1.0" encoding="UTF-8"?>
       <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
+                   
                <persistence-unit name="persistence-data" transaction-type="RESOURCE_LOCAL">	
-            <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> <!--hibernate-jpa-2.1-api: This is how Hibernate is hooked into our application to be used as JPA implementation -->
+            <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+            <!--hibernate-jpa-2.1-api: This is how Hibernate is hooked into our application to be used as JPA implementation -->
                 <class>com.tvdinh.entity.CustomerEntity</class>
                 <class>com.tvdinh.entity.RoleEntity</class>
                 <properties>
