@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" parallel="none">
   <test name="Default test(failed)" parallel="none">
     <classes>
-      <class name="com.tvdinh.test.CustomerTest">
+      <class name="com.tvdinh.test.RoleTest">
         <methods>
-          <include name="checkFindID"/>
+          <include name="checkSave"/>
         </methods>
-      </class> <!-- com.tvdinh.test.CustomerTest -->
+      </class> <!-- com.tvdinh.test.RoleTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

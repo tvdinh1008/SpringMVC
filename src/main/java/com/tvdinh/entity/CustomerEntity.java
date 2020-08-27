@@ -1,19 +1,12 @@
 package com.tvdinh.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 
 /*
@@ -21,14 +14,17 @@ import org.springframework.data.annotation.LastModifiedDate;
  */
 
 
+/*
+    FetchType mặc định JPA: EAGER tự động tìm các bảng liên quan đến khóa và đổ dữ liệu vào, LAZY không thuộc tính đó =null
+	OneToMany: LAZY
+	ManyToOne: EAGER
+	ManyToMany: LAZY
+	OneToOne: EAGER
+ */
+
 @Entity
 @Table(name="customer")
-public class CustomerEntity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="customerid")
-	private Long customerId;
+public class CustomerEntity extends BaseEntity{
 	
 	@Column(name="name", columnDefinition = "nvarchar(250)")
 	private String name;
@@ -52,49 +48,11 @@ public class CustomerEntity {
 	private int status;
 	
 	
-	@Column(name="createddate")
-	@CreatedDate
-	private Timestamp createdDate;
-	
-	
-	@Column(name="modifieddate")
-	@LastModifiedDate
-	private Timestamp modifiedDate;
-	
-
-	//@Column(name="roleid")
-	//private Long roleid;
 	@ManyToOne(optional = false) //kiểm tra ràng buộc nếu không nó cho insert cả null
 	@JoinColumn(name="roleid")
 	private RoleEntity roleEntity;
 	
 	
-
-	
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Timestamp getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Timestamp modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public Long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
-
 	public RoleEntity getRoleEntity() {
 		return roleEntity;
 	}

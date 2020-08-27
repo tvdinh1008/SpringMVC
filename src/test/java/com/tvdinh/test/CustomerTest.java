@@ -1,8 +1,5 @@
 package com.tvdinh.test;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class CustomerTest {
 	public void checkFindID()
 	{
 		ICustomerDAO iCustomerDAO=new CustomerDAO();
-		CustomerEntity cus=iCustomerDAO.findById(5L);
+		CustomerEntity cus=iCustomerDAO.findById(2L);
 		System.out.println(cus);
 	}
 	
@@ -41,12 +38,12 @@ public class CustomerTest {
 	{	
 		ICustomerDAO iCustomerDAO=new CustomerDAO();
 		CustomerEntity cus=new CustomerEntity();
-		cus.setName("Trần Văn Định nhé");
+		cus.setName("Trần Văn Định");
 		cus.setUsername("dinh");
 		cus.setPassword("123");
 		
 		RoleEntity role=new RoleEntity();
-		role.setRoleId(1L);
+		role.setId(2L);
 		cus.setRoleEntity(role);
 	
 		iCustomerDAO.save(cus);
@@ -56,7 +53,7 @@ public class CustomerTest {
 	 public void checkUpdateCustomer() { 
 	 	ICustomerDAO iCustomerDAO=new CustomerDAO();
 	 	CustomerEntity cus=new CustomerEntity();
-	 	cus.setCustomerId(1l);
+	 	cus.setId(1l);
 	 	cus.setName("Trần Văn Định nhé");
 		cus.setUsername("dinh");
 		cus.setPassword("123");

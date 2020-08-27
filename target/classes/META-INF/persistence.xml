@@ -27,8 +27,10 @@
 			     <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
 			   
 		    </properties>
+		    
+		    
          </persistence-unit>
- 
+ 		
 </persistence> 
 
 
