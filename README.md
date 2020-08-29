@@ -1,5 +1,45 @@
 # SpringMVC
 
++ FetchType mặc định JPA:
+
+  - OneToMany: LAZY
+	- ManyToOne: EAGER
+	- ManyToMany: LAZY
+	- OneToOne: EAGER
+  
+  - "FetchType.LAZY" = This does not load the relationships unless you invoke it via the getter method. "FetchType.EAGER" = This loads all the relationships.
+  -> Để lấy dữ liệu trong lazy khi truy vấn ta cố tình lấy getter().<thuộc tính> hay trong list thì lấy get(0) của thuộc tính đó nó sẽ loading data 
+  ví dụ: CustomerEnity có quan hệ n-n với RoleEntity ( qua bảng customer_role): 
+   
+    @ManyToMany(fetch = FetchType.LAZY)
+    
+    @JoinTable(name="customer_role", joinColumns = @JoinColumn(name = "userid",nullable = false,updatable = false),
+    inverseJoinColumns = @JoinColumn(name = "roleid",nullable = false,updatable = false))
+    
+    private List<RoleEntity> roles = new ArrayList<>();
+  
+  - Để lấy roles thì:
+  
+   entityManager.getTransaction().begin();
+  
+    try {
+    
+			StringBuilder sql=new StringBuilder("");
+			sql.append("Select * from customer Where username=:username and status=:status");
+			
+			Query q=entityManager.createNativeQuery(sql.toString(),CustomerEntity.class);
+			q.setParameter("username", username);
+			q.setParameter("status", status);
+			result=(CustomerEntity)q.getSingleResult();
+			result.getRoles().get(0); //cố tình lấy thì nó sẽ tạo truy vấn
+			entityManager.getTransaction().commit();
+		} 
+
+  - Khi show hibernate: nó sẽ tạo ra 2 câu query
+  
+  - Nếu sử dụng FetchType.EAGER thì nó chỉ 1 câu query nhưng nó JOIN các bảng lại
+  
+
 + Có điểm khác nhau giữa Spring data jpa và hibernate jpa2.1
   Nếu muốn sử dụng auditing(@LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy) của spring data jpa thôi thì ta chỉ cần cấu hình 3 file:
   - JPAConfig.java
