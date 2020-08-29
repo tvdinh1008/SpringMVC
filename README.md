@@ -31,7 +31,8 @@
 			q.setParameter("username", username);
 			q.setParameter("status", status);
 			result=(CustomerEntity)q.getSingleResult();
-			result.getRoles().get(0); //cố tình lấy thì nó sẽ tạo truy vấn
+			//result.getRoles().get(0); //cố tình lấy thì nó sẽ tạo truy vấn
+			result.getRoles().size();
 			entityManager.getTransaction().commit();
 		} 
 
