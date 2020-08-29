@@ -36,10 +36,11 @@
 			entityManager.getTransaction().commit();
 		} 
 
-  - Khi show hibernate: nó sẽ tạo ra 2 câu query
+  - Khi show hibernate: nó sẽ tạo ra 2 câu query. lấy đc là  vì nó vẫn nằm trong transaction nên vẫn lấy được
   
   - Nếu sử dụng FetchType.EAGER thì nó chỉ 1 câu query nhưng nó JOIN các bảng lại
   
+  - Tài liệu cách tương tự: https://stackjava.com/hibernate/code-vi-du-hibernate-fetchtype-lazy-lazy-loading.html 
 
 + Có điểm khác nhau giữa Spring data jpa và hibernate jpa2.1
   Nếu muốn sử dụng auditing(@LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy) của spring data jpa thôi thì ta chỉ cần cấu hình 3 file:
