@@ -1,6 +1,5 @@
 package com.tvdinh.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,6 +15,16 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+/*
+ * Để sử dụng 4 cái @LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy thì cần cấu hình
+ */
+/*
+    FetchType mặc định JPA: EAGER tự động tìm các bảng liên quan đến khóa và đổ dữ liệu vào, LAZY không thuộc tính đó =null
+	OneToMany: LAZY
+	ManyToOne: EAGER
+	ManyToMany: LAZY
+	OneToOne: EAGER
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {

@@ -1,26 +1,17 @@
 package com.tvdinh.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
-
-/*
- * Để sử dụng 4 cái @LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy thì cần cấu hình
- */
-
-
-/*
-    FetchType mặc định JPA: EAGER tự động tìm các bảng liên quan đến khóa và đổ dữ liệu vào, LAZY không thuộc tính đó =null
-	OneToMany: LAZY
-	ManyToOne: EAGER
-	ManyToMany: LAZY
-	OneToOne: EAGER
- */
 
 @Entity
 @Table(name="customer")
@@ -47,18 +38,35 @@ public class CustomerEntity extends BaseEntity{
 	@Column(name="status")
 	private int status;
 	
+	/*
+	 * bảng: customer_role sẽ là bảng trung gian vì 1 user có nhiều Role và 1 role cũng cho nhiều user
+	 */
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="customer_role", joinColumns = @JoinColumn(name = "userid",nullable = false,updatable = false),
+	inverseJoinColumns = @JoinColumn(name = "roleid",nullable = false,updatable = false))
+	private List<RoleEntity> roles = new ArrayList<>();
 	
-	@ManyToOne(optional = false) //kiểm tra ràng buộc nếu không nó cho insert cả null
-	@JoinColumn(name="roleid")
-	private RoleEntity roleEntity;
 	
 	
-	public RoleEntity getRoleEntity() {
-		return roleEntity;
+//	@ManyToOne(optional = false) //kiểm tra ràng buộc nếu không nó cho insert cả null
+//	@JoinColumn(name="roleid")
+//	private RoleEntity roleEntity;
+//	
+	
+//	public RoleEntity getRoleEntity() {
+//		return roleEntity;
+//	}
+//
+//	public void setRoleEntity(RoleEntity roleEntity) {
+//		this.roleEntity = roleEntity;
+//	}
+
+	public List<RoleEntity> getRoles() {
+		return roles;
 	}
 
-	public void setRoleEntity(RoleEntity roleEntity) {
-		this.roleEntity = roleEntity;
+	public void setRoles(List<RoleEntity> roles) {
+		this.roles = roles;
 	}
 
 	public String getName() {

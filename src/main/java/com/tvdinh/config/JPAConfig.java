@@ -26,11 +26,11 @@ public class JPAConfig {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(dataSource());
+		//em.setDataSource(dataSource());
 		em.setPersistenceUnitName("persistence-data");
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
-		em.setJpaProperties(additionalProperties());
+		//em.setJpaProperties(additionalProperties());
 		return em;
 	}
 	
@@ -45,7 +45,7 @@ public class JPAConfig {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
-	
+	/*
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -62,5 +62,5 @@ public class JPAConfig {
 		properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
 		return properties;
 	}
-	
+	*/
 }

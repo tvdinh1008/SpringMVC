@@ -1,16 +1,17 @@
 package com.tvdinh.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
 /*
  * Serializable là một cơ chế để ghi trạng thái của một đối tượng vào một byte stream.chủ yếu được sử dụng để truyền trạng thái của đối tượng qua mạng
  */
-public class CustomerDTO implements Serializable{
+public class CustomerDTO extends AbstractDTO implements Serializable{
 	private static final long serialVersionUID = -6922440211921721035L;
 	
-    private Long customerId;
 	private String name;
 	private String username;
 	private String email;
@@ -18,16 +19,14 @@ public class CustomerDTO implements Serializable{
 	private String phone;
 	private String address;
 	private int status;
-	//private Long roleid;
-	private RoleDTO roleDTO;
+	private List<RoleDTO> roles=new ArrayList<>();
 	
 	
-	
-	public Long getCustomerId() {
-		return customerId;
+	public List<RoleDTO> getRoles() {
+		return roles;
 	}
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
+	public void setRoles(List<RoleDTO> roles) {
+		this.roles = roles;
 	}
 	public String getName() {
 		return name;
@@ -71,17 +70,6 @@ public class CustomerDTO implements Serializable{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public RoleDTO getRoleDTO() {
-		return roleDTO;
-	}
-	public void setRoleDTO(RoleDTO roleDTO) {
-		this.roleDTO = roleDTO;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
 	
 
 }

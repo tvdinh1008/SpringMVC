@@ -1,16 +1,18 @@
 package com.tvdinh.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 @Entity
 @Table(name="role")
@@ -30,20 +32,31 @@ public class RoleEntity extends BaseEntity{
 	 * FetchType.LAZY: Khi truy vấn role thì khi cần nó mới lấy list lên
 	 * mappedBy sẽ mapp đúng với bên CustomerEntity
 	 */
-	@OneToMany(mappedBy = "roleEntity", fetch = FetchType.LAZY)
-	private List<CustomerEntity> customerList;
 	
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<CustomerEntity> customers = new ArrayList<>();
 	
-	public List<CustomerEntity> getCustomerList() {
-		return customerList;
-	}
-
-	public void setCustomerList(List<CustomerEntity> customerList) {
-		this.customerList = customerList;
-	}
+//	@OneToMany(mappedBy = "roleEntity", fetch = FetchType.LAZY)
+//	private List<CustomerEntity> customerList;
+//	
+//	public List<CustomerEntity> getCustomerList() {
+//		return customerList;
+//	}
+//
+//	public void setCustomerList(List<CustomerEntity> customerList) {
+//		this.customerList = customerList;
+//	}
 
 	public String getName() {
 		return name;
+	}
+
+	public List<CustomerEntity> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<CustomerEntity> customers) {
+		this.customers = customers;
 	}
 
 	public void setName(String name) {

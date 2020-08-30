@@ -1,5 +1,7 @@
 package com.tvdinh.service;
 
-public interface ICustomerService {
+import com.tvdinh.dto.CustomerDTO;
 
+public interface ICustomerService {
+	CustomerDTO findOneUserNameAndStatus(String username,int status);
 }

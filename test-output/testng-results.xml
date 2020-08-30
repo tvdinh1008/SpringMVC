@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3377" started-at="2020-08-27T00:34:23Z" finished-at="2020-08-27T00:34:27Z">
+  <suite name="Default suite" duration-ms="4622" started-at="2020-08-30T02:18:06Z" finished-at="2020-08-30T02:18:11Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3377" started-at="2020-08-27T00:34:23Z" finished-at="2020-08-27T00:34:27Z">
-      <class name="com.tvdinh.test.RoleTest">
-        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.RoleTest@2aece37d]" name="checkSave" duration-ms="3349" started-at="2020-08-27T07:34:23Z" finished-at="2020-08-27T07:34:27Z">
+    <test name="Default test" duration-ms="4622" started-at="2020-08-30T02:18:06Z" finished-at="2020-08-30T02:18:11Z">
+      <class name="com.tvdinh.test.CustomerTest">
+        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.CustomerTest@5ef60048]" name="checkSave" duration-ms="4605" started-at="2020-08-30T09:18:06Z" finished-at="2020-08-30T09:18:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkSave -->
-      </class> <!-- com.tvdinh.test.RoleTest -->
+      </class> <!-- com.tvdinh.test.CustomerTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

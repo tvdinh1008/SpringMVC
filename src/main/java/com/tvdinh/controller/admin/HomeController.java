@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller(value = "homeControllerOfAdmin")
 public class HomeController {
-	@RequestMapping(value = "/admin-home", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/trang-chu", method = RequestMethod.GET)
 	public String homePage() {
 
 		return "Xin chao cac ban!!";

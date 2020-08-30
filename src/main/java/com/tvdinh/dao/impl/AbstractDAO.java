@@ -2,6 +2,7 @@ package com.tvdinh.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 	protected EntityManagerFactory factory;
 	protected EntityManager entityManager;
 	private Class<T> persistenceClass; //model.class
-	private final Logger logger=Logger.getLogger(this.getClass());//chú ý file config: resouces/log4j.properties
+	protected final Logger logger=Logger.getLogger(this.getClass());//chú ý file config: resouces/log4j.properties
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDAO() {
@@ -44,10 +45,23 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 		factory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<T> result=new ArrayList<T>();
+		openEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+			String sql="select t from "+ getPersistenceClassName()+ " t";
+			result=entityManager.createQuery(sql).getResultList();
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			logger.error(e.getMessage(),e);
+		} finally {
+			close();
+		}
+		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -97,8 +111,7 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 			Object object=entityManager.find(persistenceClass, var1);
 			entityManager.getTransaction().commit();
 			result=(T) object;
-			if(result==null)
-			{
+			if(result==null){
 				throw new ObjectNotFoundException("not found "+ var1, null);
 			}
 		} catch(Exception e) {
@@ -110,6 +123,12 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 		}
 		return result;
 	}
+	
+	
+	
+	/*
+	 * Khi có quan hệ ví dụ n-n thì nó không xóa đc
+	 */
 	@Override
 	public Integer delete(List<ID> ids) {
 		Integer count=0;
@@ -131,6 +150,29 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 			close();
 		}
 		return count;// nếu count==list.size thì chứng tỏ xóa thành công
+	}
+	@Override
+	public Long count() {
+		
+		return null;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findRange(int firstResult, int maxResults) {
+		List<T> result=new ArrayList<T>();
+		openEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+			String sql="select t from "+ getPersistenceClassName()+ " t";
+			result=entityManager.createQuery(sql).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			logger.error(e.getMessage(),e);
+		} finally {
+			close();
+		}
+		return result;
 	}
 
 }

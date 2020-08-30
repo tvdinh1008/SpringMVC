@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+            
+
+            <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
+            	<!-- xác nhận quyền khi vào url -->
+            	<intercept-url pattern="/quan-tri/**" access="hasAnyRole('ADMIN')"/>
+            	<intercept-url pattern="/trang-chu" access="permitAll" />
+				<intercept-url pattern="/" access="permitAll" />
+            	
+            	<access-denied-handler error-page="/accessDenied" />
+            	
+            	<!--/dang-nhap là url sẽ apply security. Khi submit vào /j_spring_security_login thì bắt đầu xác thực  -->
+            	<form-login login-page="/dang-nhap"
+            				username-parameter="j_username"
+            				password-parameter="j_password"
+            				login-processing-url="/j_spring_security_login"
+            				authentication-success-handler-ref="customSuccessHandler"
+            				authentication-failure-url="/dang-nhap?incorrectAccount"/>
+            	
+            	<!-- Sau một thời gian không tác động đế hệ thống sẽ tự logout -->
+            	<session-management invalid-session-url="/dang-nhap?sessionTimeout"/>
+					
+				<!-- Khi vào url /j_spring_security_logout thì sẽ nhảy vào controller /thoat-->
+				<logout logout-url="/j_spring_security_logout"
+						logout-success-url="/thoat"
+						delete-cookies="JSESSIONID"/>  
+						
+				<!-- Đọc thêm tài liệu về chống tấn công csrf:mặc định CSRF sẽ được enabled -->
+				<csrf />          
+            </http>
+            
+            <!-- bảo mật và xác thực tài khoản -->
+            <authentication-manager>
+            	<authentication-provider user-service-ref="customUserDetailsService">
+            		<password-encoder ref="bcryptEncoder"/>
+            	</authentication-provider>
+            </authentication-manager>
+            
+            <!-- Các file java sẽ thực hiện -->
+            <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
+            <beans:bean id="customUserDetailsService" class="com.tvdinh.service.impl.CustomUserDetailsService"/>
+            <beans:bean id="customSuccessHandler" class="com.tvdinh.security.CustomSuccessHandler"/>
+            
+</beans:beans>
