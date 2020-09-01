@@ -14,6 +14,7 @@
             	<intercept-url pattern="/trang-chu" access="permitAll" />
 				<intercept-url pattern="/" access="permitAll" />
             	
+            	<!-- Khi đăng nhập thành công nhưng không có quyền vào url thì nó sẽ chuyển đến controller này -->
             	<access-denied-handler error-page="/accessDenied" />
             	
             	<!--/dang-nhap là url sẽ apply security. Khi submit vào /j_spring_security_login thì bắt đầu xác thực  -->

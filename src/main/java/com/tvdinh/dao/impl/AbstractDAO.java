@@ -153,8 +153,20 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID,T>
 	}
 	@Override
 	public Long count() {
-		
-		return null;
+		Long count=(long) 0;
+		openEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+			String sql="select count(t) from "+ getPersistenceClassName()+ " t";
+			count=(long) entityManager.createQuery(sql).getSingleResult();
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			logger.error(e.getMessage(),e);
+		} finally {
+			close();
+		}
+		return count;
 	}
 	@SuppressWarnings("unchecked")
 	@Override

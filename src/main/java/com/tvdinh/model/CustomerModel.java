@@ -17,6 +17,4 @@ public class CustomerModel extends AbstractModel<CustomerDTO>{
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
-	
 }

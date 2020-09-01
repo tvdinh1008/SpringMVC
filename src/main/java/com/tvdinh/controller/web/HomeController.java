@@ -58,9 +58,8 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
-	public String accessDenied() {
-		
-		return "access Denied";
+	public ModelAndView accessDenied() {
+		return new ModelAndView("redirect:/dang-nhap?accessDenied");
 	}
 	
 }

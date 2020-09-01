@@ -25,5 +25,9 @@
 	</bean>
 	
 	<!-- <mvc:resources mapping="/template/**" location="/template/" /> -->
-	   
+	
+	
+	<mvc:interceptors>
+        <bean class="com.tvdinh.interceptor.MenuHandleInterceptor"></bean>
+    </mvc:interceptors>
 </beans>
