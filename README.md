@@ -1,5 +1,14 @@
 # SpringMVC
 
++ Spring mvc interceptor by implementing HandlerInterceptor. 
+	- Cấu hình 2 file: java implements HandlerInterceptor và file dispatcher-servlet.xml (<mvc:interceptors> ...</mvc:interceptors>)
+	- Sử dụng khi muốn xử lý cái gì đó trước khi url đc request hoặc khi request hoặc sau khi request,..
+	- HandlerInterceptor interface defined 3 methods.
+	- preHandle(request, response, handler) – Used to intercept the request before handed over to the handler method. Here handler is the chosen handler object to handle the request.
+	- postHandle(request, response, handler, modelAndView) – Used to intercept the request after handler has completed request processing but DispatcherServlet is yet to render the view.
+	- afterCompletion(request, response, handler, exception)
+	- It is called once the handler execution is complete and view is rendered as well.
+	
 + FetchType mặc định JPA:
 
   - OneToMany: LAZY
