@@ -28,6 +28,15 @@
 	
 	
 	<mvc:interceptors>
+	 	<!-- This XML will intercept all URIs -->
         <bean class="com.tvdinh.interceptor.MenuHandleInterceptor"></bean>
+        
+        <!-- This XML will apply interceptor to only configured URIs -->
+	     <!--
+	     <mvc:interceptor>
+	          <mvc:mapping path="/users"></mvc:mapping>
+	          <bean class=""com.tvdinh.interceptor.MenuHandleInterceptor""></bean>
+	     <mvc:interceptor>
+	      -->
     </mvc:interceptors>
 </beans>
