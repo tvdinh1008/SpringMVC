@@ -1,5 +1,9 @@
 # SpringMVC
-
++ Quy tắc phân tầng:
+	- entity sẽ làm việc với DAO
+	- DTO sẽ làm việc với sevice( do đó cần convert entity->DTO và ngược lại)
+	- Model sẽ chứa DTO và các thuộc tính liên quan và làm việc với controller
+	
 + Spring mvc interceptor by implementing HandlerInterceptor. 
 	- Cấu hình 2 file: java implements HandlerInterceptor và file dispatcher-servlet.xml (<mvc:interceptors> ...</mvc:interceptors>)
 	- Sử dụng khi muốn xử lý cái gì đó trước khi url đc request hoặc khi request hoặc sau khi request,..
