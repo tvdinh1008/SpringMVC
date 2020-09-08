@@ -7,19 +7,21 @@ import com.tvdinh.dao.IRoleDAO;
 import com.tvdinh.dto.RoleDTO;
 import com.tvdinh.entity.RoleEntity;
 import com.tvdinh.repository.RoleRepository;
+import com.tvdinh.service.IRoleService;
 
 @Service
-public class RoleService {
+public class RoleService implements IRoleService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
 	@Autowired
 	private IRoleDAO roleDAO;
-	
-	public void save(RoleEntity role)
-	{
+
+	@Override
+	public void save(RoleEntity role) {
 		roleDAO.save(role);
 	}
+	
 	
 	
 }

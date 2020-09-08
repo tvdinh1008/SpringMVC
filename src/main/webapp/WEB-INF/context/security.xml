@@ -7,8 +7,9 @@
             http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
             
-
-            <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
+			<!--auto-config: If the value is true, it registers basic spring security configuration. -->
+			
+            <http auto-config="true" use-expressions="true" disable-url-rewriting="true">
             	<!-- xác nhận quyền khi vào url -->
             	<intercept-url pattern="/quan-tri/**" access="hasAnyRole('ADMIN')"/>
             	<intercept-url pattern="/trang-chu" access="permitAll" />
@@ -26,7 +27,7 @@
             				authentication-failure-url="/dang-nhap?incorrectAccount"/>
             	
             	<!-- Sau một thời gian không tác động đế hệ thống sẽ tự logout -->
-            	<session-management invalid-session-url="/dang-nhap?sessionTimeout"/>
+            	<!-- <session-management invalid-session-url="/dang-nhap?sessionTimeout"/> -->
 					
 				<!-- Khi vào url /j_spring_security_logout thì sẽ nhảy vào controller /thoat-->
 				<logout logout-url="/j_spring_security_logout"
@@ -34,7 +35,7 @@
 						delete-cookies="JSESSIONID"/>  
 						
 				<!-- Đọc thêm tài liệu về chống tấn công csrf:mặc định CSRF sẽ được enabled -->
-				<csrf />          
+				<csrf />      
             </http>
             
             <!-- bảo mật và xác thực tài khoản -->

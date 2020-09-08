@@ -12,11 +12,10 @@
     
     <!-- apply Sitemesh default template sẽ sử dụng giao diện -->
     <decorator name="admin" page="admin.jsp">
-        <pattern>/admin*</pattern>
+        <pattern>/quan-tri/**</pattern>
     </decorator>
-    
     <decorator name="web" page="web.jsp">
-        <pattern>/nnn/*</pattern>
+        <pattern>/*</pattern>
     </decorator>
     
     <decorator name="login" page="login.jsp">

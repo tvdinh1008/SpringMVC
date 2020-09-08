@@ -8,7 +8,6 @@
 <title>Đăng nhập</title>
 </head>
 <body>
-	<%@ include file="/common/menu.jsp" %>
 	<div class="container">
 		<dec:body />
 	</div>

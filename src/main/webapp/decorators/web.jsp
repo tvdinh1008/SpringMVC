@@ -20,7 +20,8 @@
 	<!-- header -->
     <%@ include file="/common/web/header.jsp" %>
     <!-- header -->
-
+	<h2>Menu</h2>
+	<%@ include file="/common/menu.jsp" %>
 	<!-- Page Content -->
  	<div class="container">
   		<dec:body/>

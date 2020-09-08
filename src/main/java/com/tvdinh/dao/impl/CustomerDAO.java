@@ -32,7 +32,7 @@ public class CustomerDAO extends AbstractDAO<Long, CustomerEntity> implements IC
 			//Còn sử dụng EAGER thì 1 câu truy vấn và nó sẽ đổ luôn dữ liệu roles luôn
 			result.getRoles().size(); 
 			entityManager.getTransaction().commit();
-		} catch(Exception e) {
+		} catch(Exception e) {   
 			entityManager.getTransaction().rollback();
 			logger.error(e.getMessage(),e);
 		} finally {

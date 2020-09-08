@@ -20,9 +20,13 @@ public class CustomerBeanUtil {
 		dto.setCreatedBy(entity.getCreatedBy());
 		dto.setModifiedDate(entity.getModifiedDate());
 		dto.setModifiedBy(entity.getModifiedBy());
-		for(RoleEntity role:entity.getRoles())
-		{
-			dto.getRoles().add(RoleBeanUtil.enityToDTO(role));
+		try {
+			for(RoleEntity role:entity.getRoles())
+			{
+				dto.getRoles().add(RoleBeanUtil.enityToDTO(role));
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		return dto;
 	}
@@ -36,9 +40,13 @@ public class CustomerBeanUtil {
 		entity.setEmail(dto.getEmail());
 		entity.setAddress(dto.getAddress());
 		entity.setStatus(dto.getStatus());
-		for(RoleDTO role:dto.getRoles())
-		{
-			entity.getRoles().add(RoleBeanUtil.dtoToEnitity(role));
+		try {
+			for(RoleDTO role:dto.getRoles())
+			{
+				entity.getRoles().add(RoleBeanUtil.dtoToEnitity(role));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		return entity;
 	}
