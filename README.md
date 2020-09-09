@@ -1,4 +1,6 @@
 # SpringMVC
++ Sử dụng ajax(JSON) khi click thêm sửa xóa,..(crud) tức sử dụng api. Còn controller để đổ dữ liệu ra hoặc trả về trang jsp
+
 + Sử dụng sping Form
 	- giá trị path="" trong jsp sẽ tương ứng trong controller.
 	- form:options và form:checkboxes sẽ sử dụng path làm default value 
