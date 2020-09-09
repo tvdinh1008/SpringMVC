@@ -1,5 +1,6 @@
 # SpringMVC
 + Sử dụng ajax(JSON) khi click thêm sửa xóa,..(crud) tức sử dụng api. Còn controller để đổ dữ liệu ra hoặc trả về trang jsp
+	- Do api nó cũng có chức năng gần tương tự như controller tức nó gần như cùng tầng với controller. vì thế để hiểu đc các @ thì nó cần cấu hình trong file dispather-servlet.xml: context:component-scan
 
 + Sử dụng sping Form
 	- giá trị path="" trong jsp sẽ tương ứng trong controller.
