@@ -1,4 +1,8 @@
 # SpringMVC
++ Sử dụng sping Form
+	- giá trị path="" trong jsp sẽ tương ứng trong controller.
+	- form:options và form:checkboxes sẽ sử dụng path làm default value 
+	
 + Quy tắc phân tầng:
 	- entity sẽ làm việc với DAO
 	- DTO sẽ làm việc với sevice( do đó cần convert entity->DTO và ngược lại)
