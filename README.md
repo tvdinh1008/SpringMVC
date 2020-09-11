@@ -1,4 +1,8 @@
 # SpringMVC
+
++ Có sự khác nhau giữa $().attr() và $().prop(): ví dụ "input type="checkbox" id="test" checked="checked" " thì $().attr("checked")=checked (giá trị của checked) còn $().prop("checked")=true (sự tồn tại của checked. nếu input không có checked="checked" thì $().attr("checked")=undefine và $().prop("checked")=false. TH muốn set giá trị thì $().prop("checked",true). attr bắt buộc phải có trong thẻ thì mới lấy dc giá trị
+
+
 + Sử dụng ajax(JSON) khi click thêm sửa xóa,..(crud) tức sử dụng api. Còn controller để đổ dữ liệu ra hoặc trả về trang jsp
 	- Do api nó cũng có chức năng gần tương tự như controller tức nó gần như cùng tầng với controller. vì thế để hiểu đc các @ thì nó cần cấu hình trong file dispather-servlet.xml: context:component-scan
 
