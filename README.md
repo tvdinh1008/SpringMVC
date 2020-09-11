@@ -1,5 +1,11 @@
 # SpringMVC
 
++ Sự khác nhau giữa HQL và SQL native
+	- HQL: sử dụng quan hệ 1-n, n-n và sử dụng ORM ví dụ UserEnity, RoleEntity(sử dụng trong query- gọi bảng qua getPersistenceClassName)
+	- SQL native: sử dụng toán tử JOIN và database ví dụ user,role(sử dụng khi query)
+	
+	
+	
 + Có sự khác nhau giữa $().attr() và $().prop(): ví dụ "input type="checkbox" id="test" checked="checked" " thì $().attr("checked")=checked (giá trị của checked) còn $().prop("checked")=true (sự tồn tại của checked. nếu input không có checked="checked" thì $().attr("checked")=undefine và $().prop("checked")=false. TH muốn set giá trị thì $().prop("checked",true). attr bắt buộc phải có trong thẻ thì mới lấy dc giá trị
 
 
