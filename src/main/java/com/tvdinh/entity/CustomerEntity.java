@@ -20,7 +20,7 @@ public class CustomerEntity extends BaseEntity{
 	@Column(name="name", columnDefinition = "nvarchar(250)")
 	private String name;
 	
-	@Column(name="username")
+	@Column(name="username", columnDefinition = "nvarchar(250) NOT NULL UNIQUE")
 	private String username;
 	
 	@Column(name="email")
@@ -32,7 +32,7 @@ public class CustomerEntity extends BaseEntity{
 	@Column(name="phone")
 	private String phone;
 	
-	@Column(name="address")
+	@Column(name="address", columnDefinition = "nvarchar(250)")
 	private String address;
 	
 	@Column(name="status")

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tvdinh.converter.CustomerBeanUtil;
@@ -33,19 +35,31 @@ public class CustomerService implements ICustomerService{
 		return CustomerBeanUtil.entityToDTO(customerEntity);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public CustomerDTO save(CustomerDTO customerDTO) {
 		CustomerDTO cus=null;
 		try {
-			if(customerDTO.getStatus()==0) {
+			if(customerDTO.getStatus()==null) {
 				customerDTO.setStatus(1);
 			}
 			if(customerDTO.getRoles().size()==0)
 			{
-				RoleDTO role=RoleBeanUtil.enityToDTO(roleDAO.findByCode("TT"));	
+				RoleDTO role=RoleBeanUtil.enityToDTO(roleDAO.findByCode("USER"));	
 				customerDTO.getRoles().add(role);
 			}
-			cus=CustomerBeanUtil.entityToDTO(customerDAO.save(CustomerBeanUtil.dtotoEntity(customerDTO)));
+			if(customerDTO.getId()!=null) {
+				/*
+				 * Do khi update những trường không tác động đến thì vẫn giữ nguyên
+				 */
+				CustomerEntity oldCus=customerDAO.findById(customerDTO.getId());
+				cus=CustomerBeanUtil.entityToDTO(customerDAO.update((CustomerBeanUtil.dtotoEntity(customerDTO,oldCus))));
+			}else {
+				PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				customerDTO.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
+				cus=CustomerBeanUtil.entityToDTO(customerDAO.save((CustomerBeanUtil.dtotoEntity(customerDTO))));
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());//TH lưu lỗi
 		}
@@ -69,6 +83,17 @@ public class CustomerService implements ICustomerService{
 		}
 		objects[1]=result;
 		return objects;
+	}
+
+	@Override
+	public CustomerDTO findById(Long id) {
+		CustomerDTO cus=CustomerBeanUtil.entityToDTO(customerDAO.findById(id));
+		return cus;
+	}
+
+	@Override
+	public Boolean deleteById(Long[] ids) {
+		return customerDAO.delete(ids)==ids.length;
 	}
 	
 }

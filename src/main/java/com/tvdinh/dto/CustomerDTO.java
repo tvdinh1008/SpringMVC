@@ -18,7 +18,7 @@ public class CustomerDTO extends AbstractDTO implements Serializable{
 	private String password;
 	private String phone;
 	private String address;
-	private int status;
+	private Integer status;
 	private List<RoleDTO> roles=new ArrayList<>();
 	
 	
@@ -64,10 +64,10 @@ public class CustomerDTO extends AbstractDTO implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	

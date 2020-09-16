@@ -15,39 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tvdinh.dao.ICustomerDAO;
-import com.tvdinh.dao.IRoleDAO;
-import com.tvdinh.dao.impl.CustomerDAO;
-import com.tvdinh.dao.impl.RoleDAO;
-import com.tvdinh.dto.CustomerDTO;
-import com.tvdinh.entity.CustomerEntity;
-import com.tvdinh.entity.RoleEntity;
 import com.tvdinh.model.CustomerModel;
 import com.tvdinh.service.ICustomerService;
 import com.tvdinh.service.IRoleService;
-import com.tvdinh.service.impl.CustomerService;
-import com.tvdinh.service.impl.RoleService;
+
+
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
-	
-	@Autowired
-	private IRoleService roleService;
+
 	@Autowired
 	private ICustomerService customerService;
-	
+	@Autowired
+	private IRoleService roleService;
 	
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView mav=new ModelAndView("web/home");
-		/*
-		com.tvdinh.entity.RoleEntity role=new com.tvdinh.entity.RoleEntity();
+		
+		//com.tvdinh.entity.RoleEntity role=new com.tvdinh.entity.RoleEntity();
 		//role.setCode("ADMIN");
 		//role.setName("admin");
-		role.setCode("USER");
-		role.setName("user");
-		roleService.save(role);
-		*/
+		//role.setCode("USER");
+		//role.setName("user");
+		//roleService.save(role);
+		
 		return mav;
 	}
 	
@@ -70,8 +62,10 @@ public class HomeController {
 		customerModel.setPojo(customerService.save(customerModel.getPojo()));
 		if(customerModel.getPojo()!=null) {
 			modelMap.addAttribute("customer",customerModel.getPojo());
+			return mav;
+		}else {
+			return new ModelAndView("register");
 		}
-		return mav;
 	}
 	
 	@RequestMapping(value = "/thoat", method = RequestMethod.GET)

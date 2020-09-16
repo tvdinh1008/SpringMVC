@@ -22,12 +22,11 @@ public class JpaAuditingConfig {
 		@Override
 		public String getCurrentAuditor() {
 			String name = "SYSTEM";
-			//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			//if (authentication == null) {
-			//	return name;
-			//}
-			// authentication.getName();
-			return name;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (authentication == null) {
+				return name;
+			}
+			return authentication.getName();
 		}
 		
 	}

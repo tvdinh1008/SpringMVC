@@ -10,12 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.tvdinh.converter.CustomerBeanUtil;
 import com.tvdinh.dto.CustomerDTO;
 import com.tvdinh.dto.RoleDTO;
-import com.tvdinh.entity.CustomerEntity;
-import com.tvdinh.repository.CustomerRepository;
 import com.tvdinh.security.MyUser;
 import com.tvdinh.service.ICustomerService;
 
@@ -24,15 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 
 	@Autowired
 	private ICustomerService customerService;
-	@Autowired
-	private CustomerRepository customerRepository;
-	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {	
-		//CustomerDTO user=customerService.findOneUserNameAndStatus(username, 1);
-		CustomerDTO user=CustomerBeanUtil.entityToDTO(customerRepository.findByUsername(username));
-		List<CustomerEntity>list=customerRepository.findAll();
+		CustomerDTO user=customerService.findOneUserNameAndStatus(username, 1);
+	
 		if(user==null)
 		{
 			throw new UsernameNotFoundException("User not found");

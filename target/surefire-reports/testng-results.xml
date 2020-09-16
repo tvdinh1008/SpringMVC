@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="8" passed="8">
   <reporter-output>
   </reporter-output>
-  <suite name="Command line suite" duration-ms="35" started-at="2020-08-23T07:30:19Z" finished-at="2020-08-23T07:30:19Z">
+  <suite name="Command line suite" duration-ms="11979" started-at="2020-09-13T16:21:18Z" finished-at="2020-09-13T16:21:30Z">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="35" started-at="2020-08-23T07:30:19Z" finished-at="2020-08-23T07:30:19Z">
-      <class name="com.tvdinh.test.CustomerTest">
-        <test-method status="PASS" signature="checkFindAll()[pri:0, instance:com.tvdinh.test.CustomerTest@6b2fad11]" name="checkFindAll" duration-ms="20" started-at="2020-08-23T14:30:19Z" finished-at="2020-08-23T14:30:19Z">
+    <test name="Command line test" duration-ms="11979" started-at="2020-09-13T16:21:18Z" finished-at="2020-09-13T16:21:30Z">
+      <class name="com.tvdinh.test.RoleTest">
+        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.RoleTest@614c5515]" name="checkSave" duration-ms="143" started-at="2020-09-13T23:21:30Z" finished-at="2020-09-13T23:21:30Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- checkFindAll -->
+        </test-method> <!-- checkSave -->
+      </class> <!-- com.tvdinh.test.RoleTest -->
+      <class name="com.tvdinh.test.CustomerTest">
+        <test-method status="PASS" signature="checkDelete()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="checkDelete" duration-ms="5652" started-at="2020-09-13T23:21:18Z" finished-at="2020-09-13T23:21:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkDelete -->
+        <test-method status="PASS" signature="checkFindID()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="checkFindID" duration-ms="1113" started-at="2020-09-13T23:21:24Z" finished-at="2020-09-13T23:21:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkFindID -->
+        <test-method status="PASS" signature="checkFindUsernameAndStatus()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="checkFindUsernameAndStatus" duration-ms="1302" started-at="2020-09-13T23:21:25Z" finished-at="2020-09-13T23:21:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkFindUsernameAndStatus -->
+        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="checkSave" duration-ms="1222" started-at="2020-09-13T23:21:26Z" finished-at="2020-09-13T23:21:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkSave -->
+        <test-method status="PASS" signature="checkUpdateCustomer()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="checkUpdateCustomer" duration-ms="256" started-at="2020-09-13T23:21:27Z" finished-at="2020-09-13T23:21:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkUpdateCustomer -->
+        <test-method status="PASS" signature="findAll()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="findAll" duration-ms="306" started-at="2020-09-13T23:21:27Z" finished-at="2020-09-13T23:21:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findAll -->
+        <test-method status="PASS" signature="findAllCus()[pri:0, instance:com.tvdinh.test.CustomerTest@5f2050f6]" name="findAllCus" duration-ms="1965" started-at="2020-09-13T23:21:28Z" finished-at="2020-09-13T23:21:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findAllCus -->
       </class> <!-- com.tvdinh.test.CustomerTest -->
     </test> <!-- Command line test -->
   </suite> <!-- Command line suite -->

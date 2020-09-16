@@ -133,7 +133,7 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 	 * Khi có quan hệ ví dụ n-n thì nó không xóa đc
 	 */
 	@Override
-	public Integer delete(List<ID> ids) {
+	public Integer delete(ID[] ids) {
 		Integer count = 0;
 		openEntityManager();
 		entityManager.getTransaction().begin();

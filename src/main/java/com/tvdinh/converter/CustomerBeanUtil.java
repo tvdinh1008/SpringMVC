@@ -50,4 +50,24 @@ public class CustomerBeanUtil {
 		}
 		return entity;
 	}
+	/*
+	 * Do khi update thì những thông số như createdBy, modifiedDate,.. thì nó sẽ không có và =null
+	 * Do đó ta sẽ tìm đối tượng cũ và lấy những dữ những thuộc tính cũ đó
+	 */
+	public static CustomerEntity dtotoEntity(CustomerDTO dto, CustomerEntity entity) {
+		entity.setId(dto.getId());
+		entity.setUsername(dto.getUsername());
+		entity.setName(dto.getName());
+		entity.setPassword(dto.getPassword());
+		entity.setEmail(dto.getEmail());
+		entity.setAddress(dto.getAddress());
+		entity.setStatus(dto.getStatus());
+	
+		entity.getRoles().clear();
+		for(RoleDTO role:dto.getRoles())
+		{
+			entity.getRoles().add(RoleBeanUtil.dtoToEnitity(role));
+		}
+		return entity;
+	}
 }

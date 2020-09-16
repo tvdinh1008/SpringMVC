@@ -9,6 +9,16 @@ public class CustomerModel extends AbstractModel<CustomerDTO>{
 	}
 	
 	private String confirmPassword;
+	private String roleCode[];
+	
+	
+	public String[] getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String[] roleCode) {
+		this.roleCode = roleCode;
+	}
 
 	public String getConfirmPassword() {
 		return confirmPassword;

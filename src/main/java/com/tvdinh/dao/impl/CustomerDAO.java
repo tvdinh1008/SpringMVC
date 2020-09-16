@@ -63,4 +63,24 @@ public class CustomerDAO extends AbstractDAO<Long, CustomerEntity> implements IC
 		}
 		return result;
 	}
+	
+	public CustomerEntity findById(Long var1) {
+		CustomerEntity cus=null;
+		openEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+			cus = entityManager.find(CustomerEntity.class, var1);
+			entityManager.getTransaction().commit();
+			if(cus!=null) {
+				cus.getRoles().size();
+			}
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			// System.out.println(e.getMessage());
+			logger.error(e.getMessage(), e);
+		}finally {
+			close();
+		}
+		return cus;
+	}
 }

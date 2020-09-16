@@ -22,7 +22,7 @@ public class RoleEntity extends BaseEntity{
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name="code")
+	@Column(name="code", columnDefinition = "nvarchar(250) NOT NULL UNIQUE")
 	private String code;
 	
 	/*

@@ -7,16 +7,26 @@ public class RoleBeanUtil {
 	
 	public static RoleDTO enityToDTO(RoleEntity entity) {
 		RoleDTO dto=new RoleDTO();
-		dto.setId(entity.getId());
-		dto.setName(entity.getName());
-		dto.setCode(entity.getCode());
+		try {
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			dto.setCode(entity.getCode());
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 		return dto;
 	}
 	public static RoleEntity dtoToEnitity(RoleDTO dto) {
 		RoleEntity entity=new RoleEntity();
-		entity.setId(dto.getId());
-		entity.setName(dto.getName());
-		entity.setCode(dto.getCode());	
+		try {
+			entity.setId(dto.getId());
+			entity.setName(dto.getName());
+			entity.setCode(dto.getCode());	
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 		return entity;
 	}
 	

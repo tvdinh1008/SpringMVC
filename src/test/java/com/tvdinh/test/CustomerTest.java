@@ -62,14 +62,15 @@ public class CustomerTest {
 		ICustomerDAO iCustomerDAO=new CustomerDAO();
 		CustomerEntity cus=new CustomerEntity();
 		cus.setName("Trần Văn Định");
-		cus.setUsername("dinh1");
+		cus.setUsername("dinh");
 		
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		cus.setPassword(passwordEncoder.encode("123"));
 		
 		cus.setStatus(1);
 		RoleEntity role=new RoleEntity();
-		role.setId(2L);
+		role.setId(1L);
+		role.setCode("ADMIN");
 		cus.getRoles().add(role);
 		iCustomerDAO.save(cus);
 	}

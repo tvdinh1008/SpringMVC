@@ -3,24 +3,36 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
-         <persistence-unit name="persistence-data" transaction-type="RESOURCE_LOCAL">
-         	<description>Hibernate Entity Manager</description>
+         <persistence-unit name="persistence-data" transaction-type="RESOURCE_LOCAL">	
 			<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 			
-			
          	<class>com.tvdinh.entity.CustomerEntity</class>
+         	<class>com.tvdinh.entity.RoleEntity</class>
          	
          	<properties>
-			    <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hibernate-entitymanager-demo" />
-			    <property name="javax.persistence.jdbc.user" value="root" />
-			    <property name="javax.persistence.jdbc.password" value="admin1234" />
-			    <property name="hibernate.show_sql" value="true" />
-			    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+         	
+         		<!-- Property JDBC -->
+			    <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			    <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=HibernateDemo;integratedSecurity=true" />
+			    <property name="javax.persistence.jdbc.user" value="dinh1" />
+			    <property name="javax.persistence.jdbc.password" value="dinh1" />
+			    
+			    <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+			    <!-- config hibernate -->
+			    <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> -->
+			    <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
            		<property name="hibernate.hbm2ddl.auto" value="update" />
+           		<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
+			    <property name="hibernate.show_sql" value="true" />
+			    <property name="hibernate.format_sql" value="true" />
+			    <!-- <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/> -->
+			   
+			    
 		    </properties>
+		    
+		    
          </persistence-unit>
- 
+ 		
 </persistence> 
 
 

@@ -13,7 +13,7 @@
             	<!-- xác nhận quyền khi vào url -->
             	<intercept-url pattern="/quan-tri/**" access="hasAnyRole('ADMIN')"/>
             	<intercept-url pattern="/trang-chu" access="permitAll" />
-				<intercept-url pattern="/" access="permitAll" />
+				<intercept-url pattern="/api/**" access="permitAll" />
             	
             	<!-- Khi đăng nhập thành công nhưng không có quyền vào url thì nó sẽ chuyển đến controller này -->
             	<access-denied-handler error-page="/accessDenied" />
@@ -35,7 +35,8 @@
 						delete-cookies="JSESSIONID"/>  
 						
 				<!-- Đọc thêm tài liệu về chống tấn công csrf:mặc định CSRF sẽ được enabled -->
-				<csrf />      
+				<!-- Khi sử dụng cái này thì không sử dụng đc ajax với method post, put cần cấu hình thêm nhé -->
+				<csrf />  
             </http>
             
             <!-- bảo mật và xác thực tài khoản -->
