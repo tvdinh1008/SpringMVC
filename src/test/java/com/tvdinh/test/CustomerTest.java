@@ -95,9 +95,9 @@ public class CustomerTest {
 	 @Test
 	 public void checkDelete()
 	 {
-		 List<Long> listID=new ArrayList<Long>();
+		 Long[] listID=new Long[1];
 		// listID.add(1);
-		 listID.add(4L);
+		 listID[0]=1l;
 		 ICustomerDAO iCustomerDAO=new CustomerDAO();
 		 Integer count=iCustomerDAO.delete(listID);
 		 System.out.println(count);

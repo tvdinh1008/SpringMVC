@@ -3,6 +3,7 @@ package com.tvdinh.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -199,7 +200,7 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 
 	/*
 	 * property:key tên trường muốn tìm kiếm. value: giá trị tìm kiếm
-	 * 
+	 * Sử dụng like tạm thời mới dùng được với kiểu varchar(string) còn với int, datetime,.. thì cần convert sang String thì mới dùng like được
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -222,13 +223,19 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 				i++;
 			}
 
-			StringBuilder sql1 = new StringBuilder("SELECT t FROM " + getPersistenceClassName() + " t");
+			StringBuilder sql1 = new StringBuilder("SELECT t FROM " + getPersistenceClassName() + " t WHERE 1=1");
 			for (int j = 0; j < property.size(); j++) {
-				if (j == 0) {
-					sql1.append(" where ").append(params[j]).append("=:" + params[j]);
-				} else {
-					sql1.append(" and ").append(params[j]).append("=:" + params[j]);
-				}
+				sql1.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
+				/*
+				if(values[j] instanceof String) {
+					sql1.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
+				}else if(values[j] instanceof Date) {
+					sql1.append(" and ").append("CONVERT(VARCHAR(25),"+params[j]+",121) LIKE '%' || :"+params[j]+" || '%'");
+				}else if(values[j] instanceof Long) {
+					
+				}else if(values[j] instanceof Integer) {
+					
+				}*/
 			}
 			if(StringUtils.isNotBlank(sortExpression) && StringUtils.isNotBlank(sortDirection)) {
 				sql1.append(" ORDER BY ").append(sortExpression);
@@ -236,12 +243,28 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 			}
 			Query q = entityManager.createQuery(sql1.toString()).setFirstResult(offset).setMaxResults(limit);
 			for(int j=0;j<property.size();j++) {
-				q.setParameter(params[j], values[j]);
+				if(values[j] instanceof Integer) {
+					q.setParameter(params[j], String.valueOf(values[j]));
+				}else {
+					q.setParameter(params[j], values[j]);
+				}
 			}
 			result=q.getResultList();
 			
-			String sql2 = "SELECT count(t) FROM " + getPersistenceClassName() + " t";
-			count = (Long) entityManager.createQuery(sql2).getSingleResult();
+			
+			StringBuilder sql2 =new StringBuilder("SELECT count(t) FROM " + getPersistenceClassName() + " t WHERE 1=1");
+			for (int j = 0; j < property.size(); j++) {
+				sql2.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
+			}
+			Query q2 =  entityManager.createQuery(sql2.toString());
+			for(int j=0;j<property.size();j++) {
+				if(values[j] instanceof Integer) {
+					q2.setParameter(params[j], String.valueOf(values[j]));
+				}else {
+					q2.setParameter(params[j], values[j]);
+				}
+			}
+			count=(Long)q2.getSingleResult();
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

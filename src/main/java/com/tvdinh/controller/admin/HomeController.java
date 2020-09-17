@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,9 +40,12 @@ public class HomeController {
 		return mav;
 	}
 	
+	/*
+	 * Sử dụng request khi ở trang list mà Admin muốn xóa thì sau khi xóa nó sẽ trả về message thông báo thành công hay thất bại
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/quan-tri/customer/list", method = RequestMethod.GET)
-	public ModelAndView listUser(@ModelAttribute("model")CustomerModel model,ModelMap modelMap) {
+	public ModelAndView listUser(@ModelAttribute("model")CustomerModel model,ModelMap modelMap, HttpServletRequest request) {
 		ModelAndView mav=new ModelAndView("admin/customer/list");
 		/*
 		 * model lấy được page đang đứng và limit
@@ -52,9 +56,15 @@ public class HomeController {
 			model.setMaxPageItem(2);
 			model.setCurrentPage(1);
 		}
+		
 		Map<String, Object> property=new HashMap<String, Object>();
-		//property.put("username", "dinh");
+		//property.put("username", "adm");
 		//property.put("status", 1);
+		//Khi người dùng tìm kiếm username(dựa vào input search)
+		if(StringUtils.isNotBlank(model.getPojo().getUsername())){
+			property.put("username", model.getPojo().getUsername());
+		}
+		
 		Integer offset=(model.getCurrentPage()-1)*model.getMaxPageItem();
 		Integer limit=model.getMaxPageItem();
 		String sortExpression="id";
@@ -66,6 +76,13 @@ public class HomeController {
 		model.setTotalPage((int)Math.ceil((double)model.getTotalItem()/model.getMaxPageItem()));
 		
 		modelMap.addAttribute("model", model);
+		
+		if(request.getParameter("message")!=null) {
+			Map<String,String> message=messageUtil.getMessage(request.getParameter("message"));
+			modelMap.addAttribute("message", message.get("message"));
+			modelMap.addAttribute("alert",message.get("alert"));
+		}
+		
 		return mav;
 	}
 	@RequestMapping(value = "/quan-tri/customer/edit", method=RequestMethod.GET)

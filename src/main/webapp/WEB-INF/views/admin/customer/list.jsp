@@ -8,6 +8,18 @@
 	<title>Danh sách nhân viên</title>
 </head>
 <body>
+	<c:if test="${not empty message}">
+		<div class="alert alert-${alert}">
+    		${message}
+  		</div>
+	</c:if>
+	<form action="<c:url value="/quan-tri/customer/list" />" id="formSearch" method="get">
+		Tìm kiếm: 
+		<!-- Khi submit thì cái tìm kiếm vẫn hiện thị trên input tìm kiếm qua value -->
+		<input type="text" name="pojo.username" value="${model.getPojo().getUsername()}"/>
+		<button type="submit" id="btnSearch">Tìm kiếm</button>
+	</form>
+	
 	<c:url var="createCustomerUrl" value="/quan-tri/customer/edit"></c:url>
 	<a href="${createCustomerUrl}">Thêm mới nhân viên</a>
 	<div class="dt-buttons btn-overlap btn-group">
@@ -57,10 +69,19 @@
 		<input type="hidden" name="maxPageItem" id="limit"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<ul class="pagination" id="pagination"></ul>
+		<p>Tổng có ${model.getTotalItem()} items</p>
 	</form>
 
 	<script type="text/javascript">
-	
+		$(document).ready(function(){
+			$('#btnSearch').click(function(){
+				e.preventDefault();
+				$('#formSearch').submit();
+			});
+			
+
+		});
+		
 		var currentPage=${model.currentPage}; //page hiện tại đang đứng
 		var totalPage=${model.totalPage}; //tổng số page
 		var limit=2;//số item trong 1 page
@@ -123,7 +144,6 @@
 	            	window.location.href = "<c:url value="/quan-tri/customer/list"/>?currentPage="+currentPage+"&maxPageItem="+limit+"&message=error_system";
 	            }
 	    	});
-	    	
 	    }
 	
 	</script>
