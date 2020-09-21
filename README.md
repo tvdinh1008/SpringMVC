@@ -1,5 +1,10 @@
 # SpringMVC
 
++ Gán sự kiện: sử dụng on trong jquery: ví dụ gọi ajax load dữ liệu ra được "..x.." muốn gắn sự kiện click cho x nếu sử dụng như thông thường $('x').click(....) thì nó sẽ không nhận được sự kiện click trên x=> ta sẽ sử dụng on thì nó sẽ gắn được sự kiện này $(cha của x).on('tên sự kiên','x',tênham);//nếu để tenham() thì nó sẽ gọi luôn 1 lần duy nhất sự kiện đó. và trong hàm gọi $(this) thì this chính là x.
+	Cách truyền this hoặc dữ liệu
+	- TH js có class A{ initEvent(){ $(cha của x).on('tên sự kiên','x',tênham.bind(this));} loadData(){}} thì this là class A thì khi trong hàm tênham this.loadData() là oki
+	- Để truyền dữ liệu cho hàm B(B là phương thức trong class A): $(cha của x).on('tên sự kiên',{ 'jsObject': this ),'x',B); thì this ở đây là class A. và hàm B(event){ var me=event.data['jsObject'];//me là class A}
+	
 + Sự khác nhau giữa HQL và SQL native
 	- HQL: sử dụng quan hệ 1-n, n-n và sử dụng ORM ví dụ UserEnity, RoleEntity(sử dụng trong query- gọi bảng qua getPersistenceClassName)
 	- SQL native: sử dụng toán tử JOIN và database ví dụ user,role(sử dụng khi query)
