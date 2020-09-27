@@ -35,7 +35,6 @@ public class CustomerService implements ICustomerService{
 		return CustomerBeanUtil.entityToDTO(customerEntity);
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public CustomerDTO save(CustomerDTO customerDTO) {
 		CustomerDTO cus=null;
@@ -75,8 +74,8 @@ public class CustomerService implements ICustomerService{
 			String sortExpression, String sortDirection) {
 		
 		List<CustomerDTO> result=new ArrayList<CustomerDTO>();
-		
-		Object[] objects=customerDAO.findByProperties(property, offset, limit, sortExpression, sortDirection);
+		String JOIN_FETCH="roles";
+		Object[] objects=customerDAO.findByProperties(property, offset, limit, sortExpression, sortDirection, JOIN_FETCH);
 		for(CustomerEntity item:(List<CustomerEntity>)objects[1]) {
 			CustomerDTO dto=CustomerBeanUtil.entityToDTO(item);
 			result.add(dto);

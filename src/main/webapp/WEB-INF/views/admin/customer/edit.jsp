@@ -9,12 +9,32 @@
 </head>
 <body>
 	
+	<p>Click this paragraph.</p>
+	
+	<script>
+	$(document).ready(function(){
+	  $("p").on("click",aaaa());
+	});
+	function aaaa(data){
+		alert("The paragraph was clicked.");
+	}
+	</script>
+	
 	<c:if test="${not empty message}">
 		<div class="alert alert-${alert}">
     		${message}
   		</div>
 	</c:if>
-	
+		<div class="modal-dialog">
+	     	<!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		        	<h4 class="modal-title">Modal Methods</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          
+		        </div>
+		        <div class="modal-body">
+		          
 	<form:form id="formSubmit" modelAttribute="model">
 		<form:hidden path="pojo.id" id="customerId"/>
 		name
@@ -80,39 +100,46 @@
 			<button type="button" id="btnAddOrUpdateCustomer">Thêm mới nhân viên</button>
 		</c:if>
 	</form:form>
-	
+	</div>
+	<div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+   		 </div>   
 	<script type="text/javascript">
-		$('#btnAddOrUpdateCustomer').click(function (e) {
-		    e.preventDefault();
+		$(document).ready(function(){
+			$('#btnAddOrUpdateCustomer').click(function (e) {
+			    e.preventDefault();
+				
+			    //Khai báo kiểu đối tượng
+			    var object = {};	
+			    var data={};
+			    //The serializeArray() method creates an array of objects (name and value) by serializing form values.
+			    var formData=$('#formSubmit').serializeArray();
+			    data["roleCode"]=[];
+			    $.each(formData, function(i, field){
+			    	if(field.name!="roleCode"){
+			    		var name=field.name.replace("pojo.","");
+			    		object[""+name+""] = field.value;
+			    	}
+			    });
+			    object["username"]=$('input[name="pojo.username"]').val();
+			    $.each($("input[type='checkbox']:checked"), function(){
+			    	data["roleCode"].push($(this).val());
+	            });
+			    data["pojo"]=object;
+			    //convert object sang JSON
+			    var x=JSON.stringify(data);
+			    var id=$('#customerId').val();
+			    var token=$('input[name="_csrf"]').attr('value');
+			    if(id == ""){
+			    	addCustomer(data,token);
+			    } else{
+			    	updateCustomer(data,token);
+			    }
+			});
 			
-		    //Khai báo kiểu đối tượng
-		    var object = {};	
-		    var data={};
-		    //The serializeArray() method creates an array of objects (name and value) by serializing form values.
-		    var formData=$('#formSubmit').serializeArray();
-		    data["roleCode"]=[];
-		    $.each(formData, function(i, field){
-		    	if(field.name!="roleCode"){
-		    		var name=field.name.replace("pojo.","");
-		    		object[""+name+""] = field.value;
-		    	}
-		    });
-		    object["username"]=$('input[name="pojo.username"]').val();
-		    $.each($("input[type='checkbox']:checked"), function(){
-		    	data["roleCode"].push($(this).val());
-            });
-		    data["pojo"]=object;
-		    //convert object sang JSON
-		    var x=JSON.stringify(data);
-		    var id=$('#customerId').val();
-		    var token=$('input[name="_csrf"]').attr('value');
-		    if(id == ""){
-		    	addCustomer(data,token);
-		    } else{
-		    	updateCustomer(data,token);
-		    }
 		});
-		
 		function addCustomer(data,token){
 			$.ajax({
 				url:"<c:url value="/api/customer"/>",

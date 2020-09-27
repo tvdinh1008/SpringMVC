@@ -8,6 +8,8 @@
 			
          	<class>com.tvdinh.entity.CustomerEntity</class>
          	<class>com.tvdinh.entity.RoleEntity</class>
+         	<class>com.tvdinh.entity.CategoryEntity</class>
+         	<class>com.tvdinh.entity.ProductEntity</class>
          	
          	<properties>
          	

@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class RoleEntity extends BaseEntity{
 
-	@Column(name = "name")
+	@Column(name = "name", columnDefinition = "nvarchar(250)")
 	private String name;
 	
 	@Column(name="code", columnDefinition = "nvarchar(250) NOT NULL UNIQUE")

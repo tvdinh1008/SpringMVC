@@ -60,9 +60,10 @@ public class HomeController {
 		Map<String, Object> property=new HashMap<String, Object>();
 		//property.put("username", "adm");
 		//property.put("status", 1);
-		//Khi người dùng tìm kiếm username(dựa vào input search)
+		//Khi người dùng tìm kiếm username(dựa vào input search)- đổ vào pojo còn Kết quả trả về đổ vào ListResult
 		if(StringUtils.isNotBlank(model.getPojo().getUsername())){
 			property.put("username", model.getPojo().getUsername());
+			property.put("status", 1);
 		}
 		
 		Integer offset=(model.getCurrentPage()-1)*model.getMaxPageItem();

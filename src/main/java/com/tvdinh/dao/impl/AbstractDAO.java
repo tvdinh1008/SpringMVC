@@ -3,7 +3,6 @@ package com.tvdinh.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -205,14 +204,14 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Object[] findByProperties(Map<String, Object> property, Integer offset, Integer limit, String sortExpression,
-			String sortDirection) {
+			String sortDirection, String JOIN_FETCH) {
 		List<T> result = new ArrayList<T>();
 		Long count = 0l;
 		openEntityManager();
 		entityManager.getTransaction().begin();
 		try {
-			String sql = "select t from " + getPersistenceClassName() + " t";
-			result = entityManager.createQuery(sql).setFirstResult(offset).setMaxResults(limit).getResultList();
+			//String sql = "select t from " + getPersistenceClassName() + " t";
+			//result = entityManager.createQuery(sql).setFirstResult(offset).setMaxResults(limit).getResultList();
 
 			String params[] = new String[property.size()];
 			Object values[] = new Object[property.size()];
@@ -223,9 +222,18 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 				i++;
 			}
 
-			StringBuilder sql1 = new StringBuilder("SELECT t FROM " + getPersistenceClassName() + " t WHERE 1=1");
+			//StringBuilder sql1 = new StringBuilder("SELECT t FROM " + getPersistenceClassName() + " t WHERE 1=1");
+			StringBuilder sql1 = new StringBuilder("SELECT t FROM " + getPersistenceClassName() + " t");
+			
+			if(StringUtils.isNotBlank(JOIN_FETCH)) {
+				sql1.append(" JOIN FETCH " + "t."+JOIN_FETCH);
+			}
+			
+			sql1.append(" WHERE 1=1");
+			
+			
 			for (int j = 0; j < property.size(); j++) {
-				sql1.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
+				sql1.append(" and ").append("LOWER(t."+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
 				/*
 				if(values[j] instanceof String) {
 					sql1.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
@@ -238,10 +246,10 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 				}*/
 			}
 			if(StringUtils.isNotBlank(sortExpression) && StringUtils.isNotBlank(sortDirection)) {
-				sql1.append(" ORDER BY ").append(sortExpression);
+				sql1.append(" ORDER BY t.").append(sortExpression);
 				sql1.append(" "+ (sortDirection.equals("ASC")?"ASC":"DESC"));
 			}
-			Query q = entityManager.createQuery(sql1.toString()).setFirstResult(offset).setMaxResults(limit);
+ 			Query q = entityManager.createQuery(sql1.toString()).setFirstResult(offset).setMaxResults(limit);
 			for(int j=0;j<property.size();j++) {
 				if(values[j] instanceof Integer) {
 					q.setParameter(params[j], String.valueOf(values[j]));
@@ -254,7 +262,7 @@ public class AbstractDAO<ID extends Serializable, T> implements GenericDAO<ID, T
 			
 			StringBuilder sql2 =new StringBuilder("SELECT count(t) FROM " + getPersistenceClassName() + " t WHERE 1=1");
 			for (int j = 0; j < property.size(); j++) {
-				sql2.append(" and ").append("LOWER("+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
+				sql2.append(" and ").append("LOWER(t."+params[j]+") LIKE '%' || :"+params[j]+" || '%'");
 			}
 			Query q2 =  entityManager.createQuery(sql2.toString());
 			for(int j=0;j<property.size();j++) {

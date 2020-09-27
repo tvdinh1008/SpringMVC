@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2776" started-at="2020-09-15T03:15:06Z" finished-at="2020-09-15T03:15:08Z">
+  <suite name="Default suite" duration-ms="2632" started-at="2020-09-27T14:39:33Z" finished-at="2020-09-27T14:39:36Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2776" started-at="2020-09-15T03:15:06Z" finished-at="2020-09-15T03:15:08Z">
+    <test name="Default test" duration-ms="2632" started-at="2020-09-27T14:39:33Z" finished-at="2020-09-27T14:39:36Z">
       <class name="com.tvdinh.test.CustomerTest">
-        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.CustomerTest@e50a6f6]" name="checkSave" duration-ms="2756" started-at="2020-09-15T10:15:06Z" finished-at="2020-09-15T10:15:08Z">
+        <test-method status="PASS" signature="checkSave()[pri:0, instance:com.tvdinh.test.CustomerTest@e50a6f6]" name="checkSave" duration-ms="2609" started-at="2020-09-27T21:39:33Z" finished-at="2020-09-27T21:39:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkSave -->

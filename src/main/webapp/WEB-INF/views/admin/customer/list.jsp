@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 	<title>Danh sách nhân viên</title>
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<c:if test="${not empty message}">
@@ -22,6 +25,7 @@
 	
 	<c:url var="createCustomerUrl" value="/quan-tri/customer/edit"></c:url>
 	<a href="${createCustomerUrl}">Thêm mới nhân viên</a>
+	
 	<div class="dt-buttons btn-overlap btn-group">
 	<button id="btnDelete" type="button" onclick="warningBeforeDelete()"
 		class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='Xóa bài viết'>
@@ -41,6 +45,7 @@
 					<th>UserName</th>
 					<th>Password</th>
 					<th>Status</th>
+					<th>Roles</th>
 					<th>Thao tác</th>
 				</tr>
 			</thead>
@@ -54,10 +59,22 @@
 						<td>${item.password}</td>
 						<td>${item.status}</td>
 						<td>
+							<c:forEach var="role" items="${item.roles}" varStatus="status">
+								<c:if test="${not status.last}">
+									${role.getName()},  
+								</c:if>
+								<c:if test="${status.last}">
+									${role.getName()}
+								</c:if>		
+							</c:forEach>
+						</td>
+						<td>
 							<c:url var="updateCustomerUrl" value="/quan-tri/customer/edit">
 								<c:param name="id" value="${item.id}"/>
 							</c:url>
 							<a href="${updateCustomerUrl}">Update</a>
+							<!--Để phân biệt giữa thêm mới và sửa dựa vào url updateCustomerUrl truyền this để lấy thông tin đó -->
+							<a sc-url="${updateCustomerUrl}" onclick="update(this)">Update - model</a>
 							
 						</td>
 					</tr>
@@ -71,15 +88,19 @@
 		<ul class="pagination" id="pagination"></ul>
 		<p>Tổng có ${model.getTotalItem()} items</p>
 	</form>
-
+	
+	<button type="button" class="btn btn-info btn-md" onclick="update(this)" id="myBtn">Thêm mới -model</button>
+	<!-- Modal -->
+	
+  	<div class="modal fade" id="myModal" role="dialog"></div>
+	
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#btnSearch').click(function(){
 				e.preventDefault();
 				$('#formSearch').submit();
 			});
-			
-
 		});
 		
 		var currentPage=${model.currentPage}; //page hiện tại đang đứng
@@ -145,7 +166,20 @@
 	            }
 	    	});
 	    }
+	    
+	    function update(btn){
+	    	var editUrl=$(btn).attr('sc-url');//TH update
+			if(typeof editUrl == 'undefined'){
+				//TH thêm mới
+				editUrl='${createCustomerUrl}';
+			}
+	    	$("#myModal").load(editUrl,'',function(){
+	    		 $("#myModal").modal("toggle");
+	    	});
+	 
+	    }
 	
 	</script>
+	
 </body>
 </html>
