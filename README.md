@@ -76,6 +76,15 @@
   - Nếu sử dụng FetchType.EAGER thì nó chỉ 1 câu query nhưng nó JOIN các bảng lại
   
   - Tài liệu cách tương tự: https://stackjava.com/hibernate/code-vi-du-hibernate-fetchtype-lazy-lazy-loading.html 
+  
++ Điểm khác nhau giữa query bằng hibernate và query thông thường (native query). 
+	+ hibernate sử dụng query Entity ví dụ select * from CustomerEntity
+	+ native sử dụng query name table(trong csdl) ví dụ select * from customer
+	
+	=>Khi sử dụng query Entity: nếu quan hệ manytomany ta muốn lấy list(FETCH.LAZY). ví dụ lấy danh sách nhân viên mà trong mỗi nhân viên có n roles.
+	câu query sẽ là select * from customerEntity t JOIN FETCH t.roles where t.xxx=yyy...
+	và roles là tên của thuộc tính trong lớp entity
+	
 
 + Có điểm khác nhau giữa Spring data jpa và hibernate jpa2.1
   Nếu muốn sử dụng auditing(@LastModifiedDate,@CreatedDate,@CreatedBy,@LastModifiedBy) của spring data jpa thôi thì ta chỉ cần cấu hình 3 file:
