@@ -1,5 +1,11 @@
 # SpringMVC
 
++ Giỏ hàng: Có 3 cách lưu: database, cookie, session và session là phổ biến nhất nhưng lại tốn tài nguyên cho server
+	- service của cart sẽ là map<key,value>(key:integer-id của product,value:product) cung cấp crud, tính tổng tiền, tổng sản phẩm,..
+	-
+	-
+
+
 + Gán sự kiện: sử dụng on trong jquery: ví dụ gọi ajax load dữ liệu ra được "..x.." muốn gắn sự kiện click cho x nếu sử dụng như thông thường $('x').click(....) thì nó sẽ không nhận được sự kiện click trên x=> ta sẽ sử dụng on thì nó sẽ gắn được sự kiện này $(cha của x).on('tên sự kiên','x',tênham);//nếu để tenham() thì nó sẽ gọi luôn 1 lần duy nhất sự kiện đó. và trong hàm gọi $(this) thì this chính là x.
 	Cách truyền this hoặc dữ liệu
 	- TH js có class A{ initEvent(){ $(cha của x).on('tên sự kiên','x',tênham.bind(this));} loadData(){}} thì this là class A thì khi trong hàm tênham this.loadData() là oki
